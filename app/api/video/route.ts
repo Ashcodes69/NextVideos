@@ -24,7 +24,7 @@ export async function GET() {
   }
 }
 export async function POST(req: NextRequest) {
-try {
+  try {
     //we get session from next-auth
     const session = await getServerSession(authOptions);
     if (!session) {
@@ -61,17 +61,16 @@ try {
         quality: body.transformation?.quality ?? 100,
       },
     };
-   const newVideo = await Video.create(videoData);
-   return NextResponse.json(newVideo)
-} catch (error) {
-  console.error("failed to create video: ", error)
-  return NextResponse.json(
-        {
-          success: false,
-          error: "failed to create video",
-        },
-        { status: 500 }
-      );
-    }
-}
+    const newVideo = await Video.create(videoData);
+    return NextResponse.json(newVideo);
+  } catch (error) {
+    console.error("failed to create video: ", error);
+    return NextResponse.json(
+      {
+        success: false,
+        error: "failed to create video",
+      },
+      { status: 500 }
+    );
+  }
 }
